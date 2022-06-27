@@ -1,0 +1,2 @@
+# craft-glossary
+Glossary
