@@ -1,0 +1,58 @@
+{
+    "name": "delaneymethod/craft-vocabulary",
+    "description": "Vocabulary is the easiest way to create and manage your own glossary of terms in Craft CMS.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "craft-vocabulary",
+        "glossary",
+        "vocabulary"
+    ],
+    "license": "proprietary",
+    "support": {
+        "email": "hello@delaneymethod.com",
+        "docs": "https://github.com/delaneymethod/craft-vocabulary/blob/main/README.md",
+        "issues": "https://github.com/delaneymethod/craft-vocabulary/issues"
+    },
+    "authors": [
+        {
+            "name": "DelaneyMethod",
+            "homepage": "https://delaneymethod.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "craftcms/cms": "^3.7.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "delaneymethod\\vocabulary\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Vocabulary",
+        "handle": "vocabulary",
+        "developer": "DelaneyMethod",
+        "developerUrl": "https://delaneymethod.com",
+        "documentationUrl": "https://github.com/delaneymethod/craft-vocabulary/blob/main/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/delaneymethod/craft-vocabulary/main/CHANGELOG.md",
+        "components": {
+            "glossary": "delaneymethod\\vocabulary\\services\\Vocabulary"
+        },
+        "class": "delaneymethod\\vocabulary\\Vocabulary"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.2.5"
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
+    }
+}

@@ -1,0 +1,168 @@
+{% set glossaries = [] %}
+{% if entry is defined and entry.getFieldValue('vocabulary') is defined and entry.getFieldValue('vocabulary').type('glossary').count() > 0 %}
+	{% set glossaries = entry.getFieldValue('vocabulary').type('glossary').all() %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8" />
+	<title>Glossary Example</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+	<meta name="referrer" content="origin-when-cross-origin" />
+	<script src="https://cdn.tailwindcss.com"></script>
+	<style>
+		.glossary-section .glossary,
+		.glossary-section .glossary dl dt .anchor {
+			display: none;
+		}
+
+		.glossary-section .glossary.active,
+		.glossary-section .glossary dl dt:hover .anchor {
+			display: inline-block;
+		}
+
+		.glossary-section .letters li a.active {
+			color: rgb(147 51 234);
+		}
+	</style>
+</head>
+<body class="ltr">
+<div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+	<img src="https://play.tailwindcss.com/img/beams.jpg" alt="" class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308" />
+	<div class="absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+	<div class="relative bg-white px-6 py-10 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
+		<div class="mx-auto max-w-md">
+			<div class="divide-y divide-gray-300/50">
+				<div class="space-y-6 text-base leading-7 text-gray-600 glossary-section">
+					<ul class="letters m-0 p-0 flex list-none justify-between">
+						{% for glossary in glossaries %}
+							{% if glossary.glossaryItem|length > 0 %}
+								<li class="relative z-0 inline-block font-semibold"><a href="javascript:void(0);" class="text-purple-300 hover:text-purple-400 active:text-purple-600 {% if loop.index == 1 %}active{% endif %}" data-letter="{{ glossary.glossaryHeading }}">{{ glossary.glossaryHeading }}</a></li>
+							{% else %}
+								<li class="relative z-0 inline-block font-semibold opacity-20">{{ glossary.glossaryHeading }}</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+					{% for glossary in glossaries %}
+						{% if glossary.glossaryItem|length > 0 %}
+							<div class="glossary mt-8 {% if loop.index == 1 %} active{% endif %}" id="{{ glossary.glossaryHeading }}">
+								<h2 class="text-purple-700 text-2xl font-bold mb-4">{{ glossary.glossaryHeading }}</h2>
+								<dl>
+									{% for item in glossary.glossaryItem %}
+										<dt class="text-base font-bold" id="{{ item.title|trim()|replace(' ','-') }}">
+											{{ item.title|raw }} <a href="javascript:void(0);" data-item-title="{{ item.title|trim()|replace(' ','-') }}" data-glossary-heading="{{ glossary.glossaryHeading }}" class="anchor text-fuchsia-400" title="{{ 'permalink to this item' | t }}">#</a>
+										</dt>
+										<dd class="text-base mb-5 last:mb-0">{{ item.body|raw }}</dd>
+									{% endfor %}
+								</dl>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script>
+	let waitForJQueryTimeout;
+
+	const defer = callback => {
+		if (window.jQuery) {
+			callback();
+
+			clearTimeout(waitForJQueryTimeout);
+		} else {
+			waitForJQueryTimeout = setTimeout(() => defer(callback), 50);
+		}
+	}
+
+	defer(() => {
+		const setHash = hash => {
+			if (window.history.pushState) {
+				window.history.pushState({}, '', hash);
+			} else {
+				window.location.hash = hash;
+			}
+		};
+
+		const setAnchor = itemTitle => {
+			const offset = $('#' + itemTitle).offset();
+
+			$('html, body').animate({
+				scrollTop: offset.top,
+				scrollLeft: offset.left
+			}, 1000);
+		};
+
+		const toggleGlossary = letter => {
+			// Removes active class from all letters and tabs
+			$('.glossary-section .glossary, .glossary-section .letters a').removeClass('active');
+
+			// Adds active class to selected letter and tab
+			$('.glossary-section *[data-letter=' + letter + '], .glossary-section #' + letter).addClass('active');
+		};
+
+		// Get params from url
+		const getQueryVariable = variable => {
+			const query = window.location.hash.substring(1);
+			const vars = query.split('&');
+
+			for (let i = 0; i < vars.length; i++) {
+				const pair = vars[i].split('=');
+
+				if (pair[0] === variable) {
+					return pair[1];
+				}
+			}
+
+			return false;
+		};
+
+		// Set url params as vars
+		const letter = getQueryVariable('b');
+		const hash = window.location.hash.substring(1);
+
+		// If we have /glossary#FooBar&b=F, show letter F, tab F and item FooBar
+		if (letter && hash) {
+			const params = hash.split('&');
+			const item = params.hasOwnProperty(0) ? params[0] : false;
+
+			toggleGlossary(letter);
+			setAnchor(item);
+		}
+		// If we have /glossary#F, show letter F and tab F
+		else if (hash) {
+			toggleGlossary(hash);
+		}
+
+		$('.glossary-section .letters a').on('click', event => {
+			event.preventDefault();
+
+			const letter = $(event.target).data('letter');
+
+			toggleGlossary(letter);
+			setHash('#' + letter);
+
+			return false;
+		});
+
+		// Go to selected anchor
+		$('.glossary-section .anchor').on('click', event => {
+			event.preventDefault();
+
+			const itemTitle = $(event.target).data('item-title');
+			const glossaryHeading = $(event.target).data('glossary-heading');
+
+			setAnchor(itemTitle);
+
+			// Same format as our example above: #FooBar&b=F
+			setHash('#' + itemTitle + '&b=' + glossaryHeading);
+
+			return false;
+		});
+	});
+</script>
+</body>
+</html>
