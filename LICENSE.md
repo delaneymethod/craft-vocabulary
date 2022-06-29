@@ -38,7 +38,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
 LIABILITY, INCLUDING SPECIAL, INCIDENTAL AND CONSEQUENTIAL DAMAGES, WHETHER IN
 AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-## Attributions
-
-The plugin icon was <a href="https://www.flaticon.com/free-icons/dictionary" title="Dictionary icons" target="_blank">created by Freepik - Flaticon</a> as a PNG but then converted to SVG by <a href="https://mediamodifier.com" title="Mediamodifier" target="_blank">Mediamodifier</a>.
