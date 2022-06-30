@@ -8,5 +8,4 @@ node_modules/
 
 npm-debug.log
 
-.php_cs.cache
-.php-cs-fixer.cache
+.ecs_cache
