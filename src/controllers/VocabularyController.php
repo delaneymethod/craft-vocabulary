@@ -85,7 +85,7 @@ class VocabularyController extends Controller
 
 		$field = Craft::$app->getFields()->getFieldByHandle('vocabulary');
 
-		if (! $field) {
+		if (!$field) {
 			$field = Craft::$app->getFields()->createField([
 				'type' => VocabularyField::class,
 				'groupId' => 1,
@@ -167,7 +167,7 @@ class VocabularyController extends Controller
 
 		$section = Craft::$app->getSections()->getSectionByHandle('glossaryExample');
 
-		if (! $section) {
+		if (!$section) {
 			$siteSettings = new Section_SiteSettings([
 				'hasUrls' => true,
 				'uriFormat' => '{slug}',
@@ -339,7 +339,7 @@ class VocabularyController extends Controller
 			$newBlocks['blocks'] = [];
 
 			foreach ($glossaries as $key => $glossary) {
-				$newBlocks['blocks']['new:'.($key + 1)] = $glossary;
+				$newBlocks['blocks']['new:' . ($key + 1)] = $glossary;
 			}
 
 			$existingBlocks = $entry->getFieldValue('vocabulary')->ids();
@@ -363,6 +363,6 @@ class VocabularyController extends Controller
 	 */
 	private function createExampleTemplates(): bool
 	{
-		return copy(Craft::$app->getPlugins()->getPlugin('vocabulary')->getBasePath().'/templates/glossary-example.twig', Craft::$app->getPath()->getSiteTemplatesPath().'/glossary-example.twig');
+		return copy(Craft::$app->getPlugins()->getPlugin('vocabulary')->getBasePath() . '/templates/glossary-example.twig', Craft::$app->getPath()->getSiteTemplatesPath() . '/glossary-example.twig');
 	}
 }

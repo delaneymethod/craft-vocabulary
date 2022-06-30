@@ -24,15 +24,15 @@ use Twig\Error\SyntaxError;
  */
 class Vocabulary extends Matrix
 {
-    /**
-     * Returns the display name of this class.
-     *
-     * @return string The display name of this class.
-     */
-    public static function displayName(): string
-    {
-        return Craft::t('vocabulary', 'Vocabulary');
-    }
+	/**
+	 * Returns the display name of this class.
+	 *
+	 * @return string The display name of this class.
+	 */
+	public static function displayName(): string
+	{
+		return Craft::t('vocabulary', 'Vocabulary');
+	}
 
 	/**
 	 * @return string
