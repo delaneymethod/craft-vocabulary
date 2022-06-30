@@ -1,6 +1,6 @@
 <?php
 /**
- * Vocabulary plugin for Craft CMS 3.x or later
+ * Vocabulary plugin for Craft CMS 3.x or later.
  *
  * Vocabulary is the easiest way to create and manage your own glossary of terms in Craft CMS.
  *
@@ -11,11 +11,11 @@
 namespace delaneymethod\vocabulary\fields;
 
 use Craft;
-use yii\base\Exception;
 use craft\fields\Matrix;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use yii\base\Exception;
 
 /**
  * @author    DelaneyMethod
@@ -27,7 +27,7 @@ class Vocabulary extends Matrix
 	/**
 	 * Returns the display name of this class.
 	 *
-	 * @return string The display name of this class.
+	 * @return string the display name of this class
 	 */
 	public static function displayName(): string
 	{
@@ -35,7 +35,6 @@ class Vocabulary extends Matrix
 	}
 
 	/**
-	 * @return string
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
@@ -44,7 +43,7 @@ class Vocabulary extends Matrix
 	public function getSettingsHtml(): string
 	{
 		return Craft::$app->getView()->renderTemplate('vocabulary/_components/fields/Vocabulary_settings', [
-			'field' => $this
+			'field' => $this,
 		]);
 	}
 }

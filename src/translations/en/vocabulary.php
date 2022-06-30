@@ -1,6 +1,6 @@
 <?php
 /**
- * Vocabulary plugin for Craft CMS 3.x or later
+ * Vocabulary plugin for Craft CMS 3.x or later.
  *
  * Vocabulary is the easiest way to create and manage your own glossary of terms in Craft CMS.
  *

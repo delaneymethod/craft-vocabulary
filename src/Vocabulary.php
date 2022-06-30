@@ -1,6 +1,6 @@
 <?php
 /**
- * Vocabulary plugin for Craft CMS 3.x or later
+ * Vocabulary plugin for Craft CMS 3.x or later.
  *
  * Vocabulary is the easiest way to create and manage your own glossary of terms in Craft CMS.
  *
@@ -11,13 +11,13 @@
 namespace delaneymethod\vocabulary;
 
 use Craft;
-use yii\base\Event;
 use craft\base\Plugin;
-use craft\services\Fields;
-use craft\services\Plugins;
 use craft\events\PluginEvent;
 use craft\events\RegisterComponentTypesEvent;
+use craft\services\Fields;
+use craft\services\Plugins;
 use delaneymethod\vocabulary\fields\Vocabulary as VocabularyField;
+use yii\base\Event;
 
 /**
  * @author    DelaneyMethod
@@ -26,9 +26,6 @@ use delaneymethod\vocabulary\fields\Vocabulary as VocabularyField;
  */
 class Vocabulary extends Plugin
 {
-	/**
-	 * @var Vocabulary
-	 */
 	public static Vocabulary $plugin;
 
 	/**
@@ -46,9 +43,6 @@ class Vocabulary extends Plugin
 	 */
 	public $hasCpSection = false;
 
-	/**
-	 * @return void
-	 */
 	public function init()
 	{
 		parent::init();

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Vocabulary plugin for Craft CMS 3.x or later
+ * Vocabulary plugin for Craft CMS 3.x or later.
  *
  * Vocabulary is the easiest way to create and manage your own glossary of terms in Craft CMS.
  *
@@ -12,21 +12,21 @@
 namespace delaneymethod\vocabulary\controllers;
 
 use Craft;
-use Throwable;
-use yii\web\Response;
-use yii\base\Exception;
-use craft\fields\Table;
-use craft\web\Controller;
-use craft\models\Section;
 use craft\elements\Entry;
-use craft\fields\PlainText;
-use yii\base\InvalidConfigException;
-use craft\models\Section_SiteSettings;
-use craft\errors\SiteNotFoundException;
 use craft\errors\ElementNotFoundException;
-use craft\errors\SectionNotFoundException;
 use craft\errors\EntryTypeNotFoundException;
+use craft\errors\SectionNotFoundException;
+use craft\errors\SiteNotFoundException;
+use craft\fields\PlainText;
+use craft\fields\Table;
+use craft\models\Section;
+use craft\models\Section_SiteSettings;
+use craft\web\Controller;
 use delaneymethod\vocabulary\fields\Vocabulary as VocabularyField;
+use Throwable;
+use yii\base\Exception;
+use yii\base\InvalidConfigException;
+use yii\web\Response;
 
 /**
  * @author    DelaneyMethod
@@ -46,7 +46,6 @@ class VocabularyController extends Controller
 	protected $allowAnonymous = true;
 
 	/**
-	 * @return Response
 	 * @throws Exception
 	 */
 	public function actionInstallExamples(): Response
@@ -64,7 +63,7 @@ class VocabularyController extends Controller
 
 			return $this->asJson([
 				'success' => $success,
-				'message' => $message
+				'message' => $message,
 			]);
 		} catch (Throwable $exception) {
 			$message = $exception->getMessage();
@@ -76,7 +75,6 @@ class VocabularyController extends Controller
 	}
 
 	/**
-	 * @return bool
 	 * @throws Throwable
 	 */
 	private function createFieldType(): bool
@@ -113,8 +111,8 @@ class VocabularyController extends Controller
 										'initialRows' => '4',
 										'multiline' => '',
 										'placeholder' => null,
-										'uiMode' => 'normal'
-									]
+										'uiMode' => 'normal',
+									],
 								],
 								'new2' => [
 									'id' => null,
@@ -130,23 +128,23 @@ class VocabularyController extends Controller
 												'heading' => 'Title',
 												'handle' => 'title',
 												'width' => '',
-												'type' => 'singleline'
+												'type' => 'singleline',
 											],
 											'col2' => [
 												'heading' => 'Body',
 												'handle' => 'body',
 												'width' => '',
-												'type' => 'multiline'
-											]
+												'type' => 'multiline',
+											],
 										],
 										'maxRows' => '',
-										'minRows' => ''
-									]
-								]
-							]
-						]
-					]
-				]
+										'minRows' => '',
+									],
+								],
+							],
+						],
+					],
+				],
 			]);
 
 			$success = Craft::$app->getFields()->saveField($field);
@@ -156,7 +154,6 @@ class VocabularyController extends Controller
 	}
 
 	/**
-	 * @return bool
 	 * @throws SectionNotFoundException
 	 * @throws SiteNotFoundException
 	 * @throws Throwable
@@ -173,7 +170,7 @@ class VocabularyController extends Controller
 				'uriFormat' => '{slug}',
 				'enabledByDefault' => true,
 				'template' => 'glossary-example.twig',
-				'siteId' => Craft::$app->getSites()->getPrimarySite()->id
+				'siteId' => Craft::$app->getSites()->getPrimarySite()->id,
 			]);
 
 			$section = new Section([
@@ -181,8 +178,8 @@ class VocabularyController extends Controller
 				'handle' => 'glossaryExample',
 				'type' => Section::TYPE_SINGLE,
 				'siteSettings' => [
-					$siteSettings
-				]
+					$siteSettings,
+				],
 			]);
 
 			$success = Craft::$app->getSections()->saveSection($section);
@@ -192,7 +189,6 @@ class VocabularyController extends Controller
 	}
 
 	/**
-	 * @return bool
 	 * @throws EntryTypeNotFoundException
 	 * @throws InvalidConfigException
 	 * @throws Throwable
@@ -216,7 +212,7 @@ class VocabularyController extends Controller
 			$fields = $tabs[0]->getFields();
 
 			$fields = array_unique(array_merge($fields, [
-				$field
+				$field,
 			]));
 
 			$tabs[0]->setFields($fields);
@@ -232,9 +228,8 @@ class VocabularyController extends Controller
 	}
 
 	/**
-	 * Adds an A-Z example
+	 * Adds an A-Z example.
 	 *
-	 * @return bool
 	 * @throws Exception
 	 * @throws Throwable
 	 * @throws ElementNotFoundException
@@ -246,7 +241,8 @@ class VocabularyController extends Controller
 		$entry = Entry::find()
 			->section('glossaryExample')
 			->slug('glossary-example')
-			->one();
+			->one()
+		;
 
 		if ($entry) {
 			// Always work with a clean surface
@@ -266,18 +262,18 @@ class VocabularyController extends Controller
 				'glossaryItem' => [
 					[
 						'title' => 'Address Resolution Protocol',
-						'body' => 'A TCP/IP protocol to query MAC address of the target device by its IP address, so as to ensure right communication services.'
+						'body' => 'A TCP/IP protocol to query MAC address of the target device by its IP address, so as to ensure right communication services.',
 					], [
 						'title' => 'Adjacent Channel Selectivity',
-						'body' => 'A measurement of a receiver’s ability to process a desired signal while rejecting a strong signal in an adjacent channel.'
+						'body' => 'A measurement of a receiver’s ability to process a desired signal while rejecting a strong signal in an adjacent channel.',
 					], [
 						'title' => 'AIE',
-						'body' => 'Air Interface Encryption, an encryption method used in TETRA on the Air Interface signalling only (control signalling and user payload).'
+						'body' => 'Air Interface Encryption, an encryption method used in TETRA on the Air Interface signalling only (control signalling and user payload).',
 					], [
 						'title' => 'Air Interface',
-						'body' => 'In wireless communication, the air interface is the radio-based communication link between the mobile station and the active base station.'
-					]
-				]
+						'body' => 'In wireless communication, the air interface is the radio-based communication link between the mobile station and the active base station.',
+					],
+				],
 			];
 
 			$glossaries[] = $glossary;
@@ -291,15 +287,15 @@ class VocabularyController extends Controller
 				'glossaryItem' => [
 					[
 						'title' => 'BS',
-						'body' => 'Base Station'
+						'body' => 'Base Station',
 					], [
 						'title' => 'Base Station',
-						'body' => 'In wireless communication, a base station is a wireless communication station installed at a fixed location and used as part of a two-way radio system.'
+						'body' => 'In wireless communication, a base station is a wireless communication station installed at a fixed location and used as part of a two-way radio system.',
 					], [
 						'title' => 'Bit Error Rate',
-						'body' => 'The number of received bits that have been altered due to noise, interference, and distortion, divided by the total number of transferred bits during a studied time interval locking. A measure of the receiver\'s ability to resist the strong interference signals.'
-					]
-				]
+						'body' => 'The number of received bits that have been altered due to noise, interference, and distortion, divided by the total number of transferred bits during a studied time interval locking. A measure of the receiver\'s ability to resist the strong interference signals.',
+					],
+				],
 			];
 
 			$glossaries[] = $glossary;
@@ -313,9 +309,9 @@ class VocabularyController extends Controller
 				'glossaryItem' => [
 					[
 						'title' => 'Call Out',
-						'body' => 'Standardized paging and resource management method for TETRA systems.'
-					]
-				]
+						'body' => 'Standardized paging and resource management method for TETRA systems.',
+					],
+				],
 			];
 
 			$glossaries[] = $glossary;
@@ -329,7 +325,7 @@ class VocabularyController extends Controller
 				$glossary['type'] = 'glossary';
 				$glossary['fields'] = [
 					'glossaryHeading' => $letter,
-					'glossaryItem' => []
+					'glossaryItem' => [],
 				];
 
 				$glossaries[] = $glossary;
@@ -339,7 +335,7 @@ class VocabularyController extends Controller
 			$newBlocks['blocks'] = [];
 
 			foreach ($glossaries as $key => $glossary) {
-				$newBlocks['blocks']['new:' . ($key + 1)] = $glossary;
+				$newBlocks['blocks']['new:'.($key + 1)] = $glossary;
 			}
 
 			$existingBlocks = $entry->getFieldValue('vocabulary')->ids();
@@ -358,11 +354,10 @@ class VocabularyController extends Controller
 	}
 
 	/**
-	 * @return bool
 	 * @throws Exception
 	 */
 	private function createExampleTemplates(): bool
 	{
-		return copy(Craft::$app->getPlugins()->getPlugin('vocabulary')->getBasePath() . '/templates/glossary-example.twig', Craft::$app->getPath()->getSiteTemplatesPath() . '/glossary-example.twig');
+		return copy(Craft::$app->getPlugins()->getPlugin('vocabulary')->getBasePath().'/templates/glossary-example.twig', Craft::$app->getPath()->getSiteTemplatesPath().'/glossary-example.twig');
 	}
 }
