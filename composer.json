@@ -43,7 +43,15 @@
         "components": {
             "glossary": "delaneymethod\\vocabulary\\services\\Vocabulary"
         },
-        "class": "delaneymethod\\vocabulary\\Vocabulary"
+        "class": "delaneymethod\\vocabulary\\Vocabulary",
+        "hooks": {
+            "config": {
+                "stop-on-failure": ["pre-commit"]
+            },
+            "pre-commit": [
+                "composer run-script phpstan"
+            ]
+        }
     },
     "config": {
         "sort-packages": true,
@@ -56,11 +64,13 @@
         }
     },
     "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
         "craftcms/phpstan": "dev-main",
         "phpstan/phpstan": "^1.8"
     },
     "scripts": {
-        "phpstan": "phpstan --memory-limit=1G"
+        "cghooks": "vendor/bin/cghooks",
+        "phpstan": "vendor/bin/phpstan --memory-limit=1G"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
