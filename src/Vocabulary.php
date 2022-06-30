@@ -52,7 +52,7 @@ class Vocabulary extends Plugin
 		Event::on(
 			Fields::class,
 			Fields::EVENT_REGISTER_FIELD_TYPES,
-			function (RegisterComponentTypesEvent $event) {
+			function(RegisterComponentTypesEvent $event) {
 				$event->types[] = VocabularyField::class;
 			}
 		);
@@ -60,7 +60,7 @@ class Vocabulary extends Plugin
 		Event::on(
 			Plugins::class,
 			Plugins::EVENT_AFTER_ENABLE_PLUGIN,
-			function (PluginEvent $event) {
+			function(PluginEvent $event) {
 				if ($event->plugin === $this) {
 					// or run /actions/vocabulary/vocabulary/install-examples in your browser
 					Craft::$app->controllerNamespace = 'delaneymethod\\vocabulary\\controllers';

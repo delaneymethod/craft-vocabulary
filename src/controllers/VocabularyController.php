@@ -335,7 +335,7 @@ class VocabularyController extends Controller
 			$newBlocks['blocks'] = [];
 
 			foreach ($glossaries as $key => $glossary) {
-				$newBlocks['blocks']['new:'.($key + 1)] = $glossary;
+				$newBlocks['blocks']['new:' . ($key + 1)] = $glossary;
 			}
 
 			$existingBlocks = $entry->getFieldValue('vocabulary')->ids();
@@ -358,6 +358,6 @@ class VocabularyController extends Controller
 	 */
 	private function createExampleTemplates(): bool
 	{
-		return copy(Craft::$app->getPlugins()->getPlugin('vocabulary')->getBasePath().'/templates/glossary-example.twig', Craft::$app->getPath()->getSiteTemplatesPath().'/glossary-example.twig');
+		return copy(Craft::$app->getPlugins()->getPlugin('vocabulary')->getBasePath() . '/templates/glossary-example.twig', Craft::$app->getPath()->getSiteTemplatesPath() . '/glossary-example.twig');
 	}
 }
